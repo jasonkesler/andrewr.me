@@ -11,6 +11,44 @@
 @import "compass";
 
 $highlight-color: #268bd2;
+$gray-color: rgba(0,0,0,.5);
+
+$desktop-width: 48rem;
+$large-desktop-width: 64rem;
+
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
+@mixin large-desktop {
+  @media (min-width: $large-desktop-width) {
+    @content;
+  }
+}
+
+@mixin background-image-retina($file, $type, $width, $height) {
+  background-image: url($file + '.' + $type);
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx){
+    & {
+      background-image: url($file + '@2x.' + $type);
+      -webkit-background-size: $width $height;
+      -moz-background-size: $width $height;
+      -o-background-size: $width $height;
+      background-size: $width $height;
+    }
+  }
+}
+
+@mixin square-size($length) {
+  height: $length;
+  width: $length;
+}
 
 /*
  * Global resets
@@ -20,20 +58,19 @@ $highlight-color: #268bd2;
 
 html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-@media (min-width: 48em) {
-  html {
+  @media (min-width: 34em) {
+    font-size: 18px;
+  }
+  @media (min-width: 48em) {
     font-size: 16px;
   }
-}
-@media (min-width: 58em) {
-  html {
+  @media (min-width: 58em) {
     font-size: 18px;
   }
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Links */
@@ -48,27 +85,24 @@ a {
 }
 
 .hover-underline {
-  display: inline-block;
-  position: relative;
+  html:not(.touch) & {
+    display: inline-block;
+    position: relative;
 
-  &:before {
-    background-color: $highlight-color;
-    bottom: 2px;
-    content: "";
-    display: block;
-    height: 1px;
-    left: 50%;
-    position: absolute;
-    width: 0;
-  }
-  &:hover:before {
-    left: 0;
-    width: 100%;
-  }
-}
-.hover-highlight {
-  &:hover {
-    color: $highlight-color;
+    &:before {
+      background-color: $highlight-color;
+      bottom: 2px;
+      content: "";
+      display: block;
+      height: 1px;
+      left: 50%;
+      position: absolute;
+      width: 0;
+    }
+    &:hover:before {
+      left: 0;
+      width: 100%;
+    }
   }
 }
 
@@ -76,8 +110,8 @@ a {
   @extend .hover-underline;
 }
 h1, h2, h3, h4, h5, h6 {
-  a {
-    @extend .hover-highlight;
+  a:hover {
+    color: $highlight-color;
   }
 }
 
@@ -90,48 +124,92 @@ h1, h2, h3, h4, h5, h6 {
 
 .sidebar {
   background-color: white;
-  color: rgba(0,0,0,.5);
-  padding: 4rem 1rem;
+  color: $gray-color;
+  padding: 2rem 1rem;
   text-align: center;
 
-  @media (min-width: 48rem) {
+  @include desktop {
     bottom: 0;
     left: 0;
+    padding: 4rem 1rem;
     position: absolute;
     text-align: left;
     top: 0;
     width: 18rem;
   }
 
+  .sidebar-about {
+    line-height: 1em;
+    p {
+      margin-bottom: 0.6rem;
+      display: none;
+      @include desktop {
+        display: block;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
   /* Sidebar links */
-  a {
-    @extend .hover-highlight;
+  .sidebar-nav a {
+    &:hover {
+      color: $highlight-color;
+    }
     color: #515151;
   }
-}
 
+  .social-links {
+    padding-bottom: 0.5rem;
+    @include desktop {
+      padding-bottom: 1.5rem;
+    }
+    a {
+      background-color: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      color: white;
+      font-size: 0.9rem;
+      margin-right: 5px;
+      padding: 4px;
 
-/* About section */
-.sidebar-about h1 {
-  color: black;
-  font-size: 2.5rem;
-  font-weight: 300;
-  line-height: 1em;
-  margin-top: 0;
-}
+      &:hover {
+        background-color: $highlight-color;
+        opacity: 0.8;
+      }
+    }
+  }
 
-/* Sidebar nav */
-.sidebar-nav {
-  padding-left: 0;
-  list-style: none;
-}
-.sidebar-nav-item {
-  display: block;
-  font-size: 1em;
-  font-weight: 300;
+  /* About section */
+  .sidebar-about h1 {
+    color: black;
+    font-size: 2.3rem;
+    @include desktop {
+      font-size: 2.5rem;
+    }
+    font-weight: 300;
+    line-height: 1em;
+    margin-top: 0;
+  }
 
-  &.active {
-    font-weight: 500;
+  /* Sidebar nav */
+  .sidebar-nav {
+    padding-left: 0;
+    list-style: none;
+    // margin-bottom: 0;
+  }
+  .sidebar-nav-item {
+    display: inline;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin: 0 5px;
+
+    @include desktop {
+      display: block;
+      margin: 0;
+    }
+
+    &.active {
+      font-weight: 500;
+    }
   }
 }
 
@@ -157,22 +235,74 @@ h1, h2, h3, h4, h5, h6 {
  * with a 25%-wide `.sidebar`.
  */
 
-.content {
-  padding-top:    4rem;
-  padding-bottom: 1rem;
-
-  @media (min-width: 48rem) {
+.centered-content {
+  @include desktop {
     max-width: 38rem;
-    margin-left: 20rem;
+    margin-left: 18rem;
     margin-right: 2rem;
   }
-
-  @media (min-width: 64rem) {
+  @include large-desktop {
     margin-left: 22rem;
     margin-right: 4rem;
   }
 }
 
+.content {
+  @extend .centered-content;
+  font-weight: 400;
+  margin-bottom: -2rem;
+  padding-bottom: 1rem;
+  position: relative;
+
+  @include desktop {
+    min-height: 100%;
+    padding-top: 4rem;
+  }
+
+  .post-date {
+    color: $gray-color;
+    font-weight: 300;
+  }
+}
+
+.page {
+  margin-bottom: 2rem;
+}
+
+html, body {
+  height: 100%;
+}
+
 #copyright {
+  @extend .centered-content;
   font-size: 0.75rem;
+  padding: 0 1rem;
+}
+
+.profile-pic {
+  @include square-size(100px);
+  background-image: url(asset_path('profile.jpg'));
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 8px;
+  margin-right: 15px;
+  position: relative;
+
+  &, &::before { 
+    border-radius: 50%;
+  }
+  &::before {
+    background-color: white;
+    box-shadow: 0 1px 3px -1px rgba(0,0,0,0.75);
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    $avatar-inset: 3px;
+    top:    -$avatar-inset;
+    left:   -$avatar-inset;
+    right:  -$avatar-inset;
+    bottom: -$avatar-inset;
+  }
 }
