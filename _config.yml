@@ -20,3 +20,9 @@ paginate:         5
 # Custom vars
 github:
   repo:           https://github.com/poole/hyde
+
+assets:
+  sources:
+    - _assets/images
+    - _assets/js
+    - _assets/css

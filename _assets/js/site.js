@@ -1,3 +1,5 @@
+//= require vendor/jquery
+
 const NAV_TOP_PADDING = 20;
 
 var sidebarScrollTop = 0;
