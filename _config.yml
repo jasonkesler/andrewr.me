@@ -9,7 +9,7 @@ permalink:        pretty
 title:            Andrew Richardson
 tagline:          
 description:      'iOS Developer & Student'
-url:              http://hyde.getpoole.com
+url:              http://andrewr.me
 
 author:
   name:           'Andrew Richardson'
@@ -18,8 +18,10 @@ author:
 paginate:         5
 
 # Custom vars
-github:
-  repo:           https://github.com/poole/hyde
+github:           https://github.com/aricha
+twitter:          https://twitter.com/nosdrew
+linkedin:         http://ca.linkedin.com/in/aricha
+email:            contact@andrewr.me
 
 assets:
   sources:
