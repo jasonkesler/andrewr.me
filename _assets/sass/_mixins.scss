@@ -1,0 +1,35 @@
+/* Mixins */
+
+// Media queries
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
+@mixin large-desktop {
+  @media (min-width: $large-desktop-width) {
+    @content;
+  }
+}
+
+// Images
+@mixin background-image-retina($file, $type) {
+  background-image: url($file + '.' + $type);
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx){
+    & {
+      background-image: url($file + '@2x.' + $type);
+      @include background-size(contain);
+    }
+  }
+}
+
+// Helpers
+@mixin square-size($length) {
+  height: $length;
+  width: $length;
+}

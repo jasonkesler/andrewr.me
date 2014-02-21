@@ -1,0 +1,23 @@
+.post {
+  .post-title {
+    margin-bottom: 0;
+  }
+  .post-date, .permalink {
+    display: inline-block;
+  }
+
+  .permalink {
+    color: $gray-color;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.3rem;
+    padding-left: 0.3rem;
+
+    &:before {
+      content: "∞";
+    }
+    &:hover {
+      color: $highlight-color;
+    }
+  }
+}

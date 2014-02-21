@@ -1,0 +1,30 @@
+@import "compass";
+
+/* Variables */
+$highlight-color: #268bd2;
+$gray-color: rgba(0,0,0,.5);
+
+$desktop-width: 48rem;
+$large-desktop-width: 64rem;
+
+/* Global resets */
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  @media (min-width: 34em) {
+    font-size: 18px;
+  }
+  @media (min-width: 48em) {
+    font-size: 16px;
+  }
+  @media (min-width: 58em) {
+    font-size: 18px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+html, body {
+  height: 100%;
+}

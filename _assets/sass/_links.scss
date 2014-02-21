@@ -1,0 +1,41 @@
+/* Links */
+a {
+  display: inline-block;
+  &, &:after, &:before {
+    @include transition(0.2s);
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.hover-underline {
+  html:not(.touch) & {
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      background-color: $highlight-color;
+      bottom: 2px;
+      content: "";
+      display: block;
+      height: 1px;
+      left: 50%;
+      position: absolute;
+      width: 0;
+    }
+    &:hover:before {
+      left: 0;
+      width: 100%;
+    }
+  }
+}
+
+.text-content a {
+  @extend .hover-underline;
+}
+h1, h2, h3, h4, h5, h6 {
+  a:hover {
+    color: $highlight-color;
+  }
+}

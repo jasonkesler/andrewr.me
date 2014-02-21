@@ -1,0 +1,45 @@
+/* Container
+ *
+ * Align the contents of the site above the proper threshold with some margin-fu
+ * with a 25%-wide `.sidebar`.
+ */
+
+.centered-content {
+  @include desktop {
+    max-width: 38rem;
+    margin-left: 18rem;
+    margin-right: 2rem;
+  }
+  @include large-desktop {
+    margin-left: 22rem;
+    margin-right: 4rem;
+  }
+}
+
+.content {
+  @extend .centered-content;
+  font-weight: 400;
+  margin-bottom: -2rem;
+  padding-bottom: 1rem;
+  position: relative;
+
+  @include desktop {
+    min-height: 100%;
+    padding-top: 4rem;
+  }
+
+  .post-date {
+    color: $gray-color;
+    font-weight: 300;
+  }
+}
+
+.page {
+  margin-bottom: 2rem;
+}
+
+#copyright {
+  @extend .centered-content;
+  font-size: 0.75rem;
+  padding: 0 1rem;
+}

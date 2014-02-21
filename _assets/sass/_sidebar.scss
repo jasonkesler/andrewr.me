@@ -1,0 +1,115 @@
+/*
+ * Sidebar
+ *
+ * Flexible banner for housing site name, intro, and "footer" content. Starts
+ * out above content in mobile and later moves to the side with wider viewports.
+ */
+
+.sidebar {
+  background-color: white;
+  color: $gray-color;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  @include desktop {
+    bottom: 0;
+    left: 0;
+    padding: 4rem 1rem;
+    position: absolute;
+    body.fixed-sidebar & {
+      position: fixed;
+    }
+    text-align: left;
+    top: 0;
+    width: 18rem;
+  }
+
+  .sidebar-about {
+    line-height: 1em;
+    p {
+      margin-bottom: 0.6rem;
+      display: none;
+      @include desktop {
+        display: block;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  /* Sidebar links */
+  .sidebar-nav a {
+    &:hover {
+      color: $highlight-color;
+    }
+    color: #515151;
+  }
+
+  .social-links {
+    padding-bottom: 0.5rem;
+    @include desktop {
+      padding-bottom: 1.5rem;
+    }
+    a {
+      background-color: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      color: white;
+      font-size: 0.9rem;
+      margin-right: 5px;
+      padding: 4px;
+
+      &:hover {
+        background-color: $highlight-color;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  /* About section */
+  .sidebar-about h1 {
+    color: black;
+    font-size: 2.3rem;
+    @include desktop {
+      font-size: 2.5rem;
+    }
+    font-weight: 300;
+    line-height: 1em;
+    margin-top: 0;
+  }
+
+  /* Sidebar nav */
+  .sidebar-nav {
+    padding-left: 0;
+    list-style: none;
+    // margin-bottom: 0;
+  }
+  .sidebar-nav-item {
+    display: inline;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin: 0 5px;
+
+    @include desktop {
+      display: block;
+      margin: 0;
+    }
+
+    &.active {
+      font-weight: 500;
+    }
+  }
+}
+
+/* Sticky sidebar
+ *
+ * Add the `sidebar-sticky` class to the sidebar's container to affix it the
+ * contents to the bottom of the sidebar in tablets and up.
+ */
+
+@media (min-width: 48rem) {
+  .sidebar-sticky {
+    position: absolute;
+    right:  1rem;
+    bottom: 1rem;
+    left:   1rem;
+  }
+}
