@@ -142,7 +142,8 @@ module.exports = function(grunt) {
       build: {},
       production: {
         options: {
-          raw: 'production: true'
+          config: '_config.yml',
+          raw: 'production: true\n'
         }
       }
     },

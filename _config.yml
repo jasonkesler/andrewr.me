@@ -40,5 +40,6 @@ exclude: [
   'Gemfile.lock',
   'README.md',
   'env',
-  'tmp'
+  'tmp',
+  '*.sublime-*'
 ]
