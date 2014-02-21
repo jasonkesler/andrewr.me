@@ -14,14 +14,16 @@
   </title>
 
   <!-- CSS -->
-  {% stylesheet poole %}
-  {% stylesheet syntax %}
-  {% stylesheet site %}
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="/debug/style.css">
 
   <!-- JS -->
-  {% javascript vendor/modernizr %}
-  {% javascript site %}
+  <script src="/js/vendor/modernizr.js"></script>
+  {% if site.env == 'production' %}
+      <script src="/build/app.min.js"></script>
+  {% else %}
+      <script src="/debug/app.js"></script>
+  {% endif %}
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">

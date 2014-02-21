@@ -8,6 +8,7 @@
  * Themes
  */
 
+
 @import "compass";
 
 $highlight-color: #268bd2;
@@ -281,7 +282,8 @@ html, body {
 
 .profile-pic {
   @include square-size(100px);
-  background-image: url(asset_path('profile.jpg'));
+  // background-image: url('../assets/profile.jpg');
+  @include background-image-retina('../assets/profile', 'jpg', 100px, 100px);
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
