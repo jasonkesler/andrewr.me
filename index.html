@@ -5,19 +5,7 @@ title: Home
 
 <div class="posts">
   {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
-
-    <span class="post-date">{{ post.date | date: '%B %-d, %Y' }}</span>
-
-    <div class="text-content">
-      {{ post.content }}
-    </div>
-  </div>
+    {% include post.html post=post %}
   {% endfor %}
 </div>
 

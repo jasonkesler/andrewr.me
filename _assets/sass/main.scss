@@ -28,7 +28,7 @@ $large-desktop-width: 64rem;
   }
 }
 
-@mixin background-image-retina($file, $type, $width, $height) {
+@mixin background-image-retina($file, $type) {
   background-image: url($file + '.' + $type);
   @media only screen and (-webkit-min-device-pixel-ratio: 2),
     only screen and (-moz-min-device-pixel-ratio: 2),
@@ -38,10 +38,7 @@ $large-desktop-width: 64rem;
     only screen and (min-resolution: 2dppx){
     & {
       background-image: url($file + '@2x.' + $type);
-      -webkit-background-size: $width $height;
-      -moz-background-size: $width $height;
-      -o-background-size: $width $height;
-      background-size: $width $height;
+      @include background-size(contain);
     }
   }
 }
@@ -281,14 +278,13 @@ html, body {
 }
 
 .profile-pic {
-  @include square-size(100px);
-  // background-image: url('../assets/profile.jpg');
-  @include background-image-retina('../assets/profile', 'jpg', 100px, 100px);
+  @include square-size(7.5rem);
+  @include background-image-retina('assets/profile', 'jpg');
   background-position: center center;
   background-repeat: no-repeat;
   float: left;
-  margin-top: 8px;
-  margin-right: 15px;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
   position: relative;
 
   &, &::before { 
@@ -306,5 +302,29 @@ html, body {
     left:   -$avatar-inset;
     right:  -$avatar-inset;
     bottom: -$avatar-inset;
+  }
+}
+
+.post {
+  .post-title {
+    margin-bottom: 0;
+  }
+  .post-date, .permalink {
+    display: inline-block;
+  }
+
+  .permalink {
+    color: $gray-color;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.3rem;
+    padding-left: 0.3rem;
+
+    &:before {
+      content: "∞";
+    }
+    &:hover {
+      color: $highlight-color;
+    }
   }
 }

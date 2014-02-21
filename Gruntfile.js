@@ -1,5 +1,33 @@
+var path = require('path');
+
 module.exports = function(grunt) {
-  const asset_path = ''; //'_assets';
+  const asset_dir = '_assets';
+  const build_dir = 'dist';
+
+  function path_from_type(asset) {
+    const path_map = {
+      'css': 'css',
+      'scss': 'sass',
+      'js': 'js'
+    };
+    const default_path = 'assets';
+
+    var type = path.extname(asset).substr(1);
+    var type_path = (function() {
+      if (path_map[type])
+        return path_map[type];
+      else
+        return default_path;
+    })();
+    return type_path ? path.join(type_path, asset) : asset;
+  }
+
+  function asset_path(asset) {
+    return path.join(asset_dir, path_from_type(asset));
+  }
+  function build_path(asset) {
+    return path.join(build_dir, asset);
+  }
   
   // Load all NPM grunt tasks
   require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
@@ -10,11 +38,11 @@ module.exports = function(grunt) {
 
     meta: {
       scripts: [
-        asset_path + 'js/**/*.js'
+        asset_path('**/*.js')
       ],
       styles: [
-        asset_path + 'sass/**/*.scss',
-        asset_path + 'css/**/*.css'
+        asset_path('**/*.scss'),
+        asset_path('**/*.css')
       ]
     },
 
@@ -23,75 +51,98 @@ module.exports = function(grunt) {
       options: {
         // Shim 3rd party libraries not in `node_modules`
         shim: {
-          'modernizr': {path: 'js/vendor/modernizr.js', exports: 'modernizr'},
-          'jquery': {path: 'js/vendor/jquery.js', exports: 'jquery'}
-          // 'jquery': {path: 'bower_components/jquery/jquery.js', exports: 'jQuery'},
-          // // 'fastclick': {path: 'bower_components/fastclick/lib/fastclick.js', exports: 'jQuery'},
-          // 'jquery-jail': {path: 'bower_components/JAIL/src/jail.js', exports: 'jail'}
+          'modernizr': {path: asset_path('vendor/modernizr.js'), exports: 'modernizr'},
+          'jquery': {path: asset_path('vendor/jquery.js'), exports: 'jquery'}
         }
       },
       debug: {
         src: ['app/main.js'],
-        dest: 'debug/app.js',
+        dest: build_path('app.js'),
         options: {
           debug: true
         }
       },
       build: {
         src: ['app/main.js'],
-        dest: 'build/app.js'
+        dest: build_path('app.js')
       }
     },
 
     // Compile Sass files to CSS
     compass: {
       options: {
-        // require: 'compass-inuit',
-        sassDir: 'sass'
+        sassDir: path.join(asset_dir, 'sass'),
+        cssDir: build_dir
       },
       debug: {
         options: {
-          cssDir: 'debug',
           // For source maps
           debugInfo: true,
           outputStyle: 'expanded'
         }
       },
-      build: {
-        options: {
-          cssDir: 'build'
-        }
-      }
+      build: {}
     },
 
     // Concatenate files
     concat: {
-      debug: {
-        files: {
-          'debug/style.css': ['css/*.css', 'debug/main.css']
-        }
-      },
       build: {
-        files: {
-          'build/style.css': ['css/*.css', 'build/main.css']
-        }
+        src: [asset_path('*.css'), build_path('main.css')],
+        dest: build_path('style.css')
       }
     },
 
     // Minify CSS files
     cssmin: {
       build: {
-        files: {
-          'build/style.min.css': ['build/style.css']
-        }
+        src: [build_path('style.css')],
+        dest: build_path('style.min.css')
       }
     },
 
     // Minify JS files
     uglify: {
       build: {
-        files: {
-          'build/app.min.js': ['build/app.js']
+        src: [build_path('app.js')],
+        dest: build_path('app.min.js')
+      }
+    },
+
+    copy: {
+      assets: {
+        expand: true, 
+        cwd: asset_dir, 
+        src: ['assets/**'], 
+        dest: build_dir
+      },
+      vendor: {
+        expand: true, 
+        cwd: path.join(asset_dir, 'js'), 
+        src: ['vendor/**'], 
+        dest: build_dir
+      },
+    },
+
+    // Clean target directories
+    clean: {
+      build: [build_dir],
+      temp: { expand: true, cwd: build_dir, src: ['*.css', '!style*.css'] },
+      all: [build_dir]
+    },
+
+    // Run Jekyll commands
+    jekyll: {
+      server: {
+        options: {
+          serve: true,
+          // Add the --watch flag, i.e. rebuild on file changes
+          watch: true
+        }
+      },
+      build: {},
+      production: {
+        options: {
+          raw: 'production: true'
         }
       }
     },
@@ -104,59 +155,45 @@ module.exports = function(grunt) {
       },
       styles: {
         files: ['<%= meta.styles %>'],
-        tasks: ['compass:debug', 'concat:debug']
+        tasks: ['compass:debug', 'concat:build']
+      },
+      assets: {
+        files: [path.join(asset_dir, 'assets/**/*')],
+        tasks: ['copy:assets']
+      },
+      livereload: {
+        files: ['_site/**/*'],
+        options: { livereload: true, debounceDelay: 1000 }
       }
     },
 
-    // Clean target directories
-    clean: {
-      debug: ['debug'],
-      buildTemp: [
-        'build/main.css',
-        'build/style.css',
-        'build/app.js'
-      ],
-      all: ['debug', 'build']
-    },
-
-    // Run Jekyll commands
-    jekyll: {
-      server: {
+    concurrent: {
+      watch: {
+        tasks: ['jekyll:server', 'watch'],
         options: {
-          serve: true,
-          // Add the --watch flag, i.e. rebuild on file changes
-          watch: true
-        }
-      },
-      build: {
-        options: {
-          serve: false
+          logConcurrentOutput: true
         }
       }
     }
   });
-
+  
   // Compile JS & CSS, run watch to recompile on change
   grunt.registerTask('debug', function() {
-    // Rebuild './debug'
     grunt.task.run([
-      'clean:debug',
+      'clean:build',
       'compass:debug',
       'browserify:debug',
-      'concat:debug'
+      'concat:build',
+      'copy',
+      'clean:temp'
     ]);
     // Watch for changes
-    grunt.task.run('watch');
+    grunt.task.run('concurrent:watch');
   });
-
-  // Alias to `grunt jekyll:server`
-  grunt.registerTask('server', 'jekyll:server');
 
   // Run Jekyll build with environment set to production
   grunt.registerTask('jekyll-production', function() {
-    grunt.log.writeln('Setting environment variable JEKYLL_ENV=production');
-    process.env.JEKYLL_ENV = 'production';
-    grunt.task.run('jekyll:build');
+    grunt.task.run('jekyll:production');
   });
 
   // Compile and minify JS & CSS, run Jekyll build for production 
@@ -167,7 +204,8 @@ module.exports = function(grunt) {
     'concat:build',
     'cssmin',
     'uglify',
-    'clean:buildTemp',
+    'copy',
+    'clean:temp',
     'jekyll-production'
   ]);
 

@@ -39,10 +39,6 @@ exclude: [
   'Gemfile',
   'Gemfile.lock',
   'README.md',
-  'css',
-  'sass',
-  'js',
-  'coffee',
   'env',
   'tmp'
 ]

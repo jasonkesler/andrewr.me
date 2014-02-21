@@ -1,0 +1,19 @@
+{% if include.post %}
+  {% assign this_post = include.post %}
+{% else %}
+  {% assign this_post = page %}
+{% endif %}
+<div class="post">
+  <h1 class="post-title">{{ this_post.title }}</h1>
+  <div class="post-subtitle">
+    <span class="post-date">{{ this_post.date | date: '%B %-d, %Y' }}</span>
+    <a class="permalink" href="{{ this_post.url }}"></a>
+  </div>
+  <div class="text-content">
+    {% if include.post %}
+      {{ include.post.content }}
+    {% else %}
+      {{ content }}
+    {% endif %}
+  </div>
+</div>

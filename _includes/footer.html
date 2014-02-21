@@ -1,0 +1,10 @@
+<p id="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</p>
+
+<!-- JS -->
+<script src="/dist/vendor/modernizr.js"></script>
+{% if site.production %}
+  <script src="/dist/app.min.js"></script>
+{% else %}
+  <script src="/dist/app.js"></script>
+  <script src="http://localhost:35729/livereload.js"></script>
+{% endif %}

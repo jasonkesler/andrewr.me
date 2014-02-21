@@ -2,13 +2,7 @@
 layout: default
 ---
 
-<div class="post">
-  <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date: '%B %-d, %Y' }}</span>
-  <div class="text-content">
-    {{ content }}
-  </div>
-</div>
+{% include post.html %}
 
 <!-- <div class="related">
   <h2>Related Posts</h2>
