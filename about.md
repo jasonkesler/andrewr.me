@@ -1,5 +1,6 @@
 ---
 layout: page
+fixed-menu: true
 title: About
 ---
 
