@@ -51,7 +51,6 @@ module.exports = function(grunt) {
       options: {
         // Shim 3rd party libraries not in `node_modules`
         shim: {
-          'modernizr': {path: asset_path('vendor/modernizr.js'), exports: 'modernizr'},
           'jquery': {path: asset_path('vendor/jquery.js'), exports: 'jquery'}
         }
       },
@@ -152,7 +151,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['<%= meta.scripts %>'],
-        tasks: ['browserify2:debug']
+        tasks: ['browserify:debug']
       },
       styles: {
         files: ['<%= meta.styles %>'],
@@ -163,7 +162,8 @@ module.exports = function(grunt) {
         tasks: ['copy:assets']
       },
       livereload: {
-        files: ['_site/**/*'],
+        // everything is regenerated on build, so we only need to watch one file
+        files: ['_site/index.html'],
         options: { livereload: true, debounceDelay: 1000 }
       }
     },
