@@ -1,0 +1,102 @@
+.bottom-border {
+  // &:before {
+  //   $border-black: 40%;
+  //   $border-color: rgba(100% - $border-black, 100% - $border-black, 100% - $border-black, .75);
+  //   $fade-ratio: 10%;
+  //   @include background-image(linear-gradient(left, transparent, $border-color $fade-ratio, $border-color 100% - $fade-ratio, transparent));
+
+  //   bottom: 0;
+  //   content: "";
+  //   display: block;
+  //   height: 1px;
+  //   position: absolute;
+  //   width: 100%;
+  //   z-index: 1;
+  // }
+
+  // margin: 5px;
+  // box-shadow: 0 0 10px -6px rgba(0,0,0,0.75);
+}
+
+.project-group-title {
+  color: $gray-color;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+.project-container {
+  margin-bottom: 5rem;
+
+  .project {
+    @include mobile {
+      @include grid-column(1, 5%);
+      margin-bottom: 1rem;
+    }
+    @include not-mobile {
+      @include grid-column(2, 8%);
+      margin-bottom: 1.5rem;
+    }
+    max-width: 24rem;
+
+    .ss-container {
+      height: 15rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      // @extend .bottom-border;
+    }
+    .screenshot {
+      position: absolute;
+      // display: block;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 100%;
+      // min-height: 100%;
+    }
+    .project-title {
+      margin-top: 0.5rem;
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+    .project-summary {
+      color: $gray-color;
+      line-height: 1rem;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}
+
+@mixin zoomed-image($dimension, $size) {
+  & {
+    margin: 0;
+    @if $dimension == width {
+      width: (100% / $size) * 100%;
+      height: auto;
+    } @else if $dimension == height {
+      height: (100% / $size) * 100%;
+      width: auto;
+    }
+  }
+}
+
+.screenshot {
+  &#ssi-jukebox {
+    @include zoomed-image(width, 100%);
+    top: -52%;
+  }
+  &#ssi-merge {
+    @include zoomed-image(width, 100%);
+    top: -222px;
+    // left: -45px;
+    margin: 0;
+  }
+  &#ssi-lecture {
+    @include zoomed-image(height, 62%);
+    top: 0;
+  }
+}

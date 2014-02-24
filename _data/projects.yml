@@ -1,51 +1,64 @@
-- title: Jukebox
-  description: >
-    Jukebox is the way to control your music on iOS. Offering a beautiful and
-    minimalistic aesthetic, while also providing a robust set of controls,
-    Jukebox changes the way you interact with your music for the better. The
-    controls are revealed with a single tap, so they don’t get in between you
-    and  your music when you don’t need them. Simply swipe to the left or right
-    to view the next or previous song, and swipe further to skip to that song.
-    
+iOS:
+    jukebox:
+        title: Jukebox
+        image: jukebox
+        summary: Your music, just a swipe away
+        description: >
+          Jukebox is the way to control your music on iOS. Offering a beautiful and
+          minimalistic aesthetic, while also providing a robust set of controls,
+          Jukebox changes the way you interact with your music for the better. The
+          controls are revealed with a single tap, so they don’t get in between you
+          and  your music when you don’t need them. Simply swipe to the left or right
+          to view the next or previous song, and swipe further to skip to that song.
+        
 
-    This is only the tip of the iceberg of what Jukebox has to offer. Intuitive
-    gestures. One-tap sharing to Twitter and Facebook. Full support for third-
-    party apps. Compatibility with every device running iOS 5 and up. For only
-    $0.99, Jukebox gives you everything you’d ever need in a music widget.
-- title: Merge
-  description: >
-    Ever tried to send a message to a contact with more than one number or
-    address in the iOS Messages app? If so, you probably know what a pain it is
-    to keep track of each conversation and to switch between them. It doesn’t
-    help that Messages conceals which address you’re currently sending to,
-    either.
+          This is only the tip of the iceberg of what Jukebox has to offer. Intuitive
+          gestures. One-tap sharing to Twitter and Facebook. Full support for third-
+          party apps. Compatibility with every device running iOS 5 and up. For only
+          $0.99, Jukebox gives you everything you’d ever need in a music widget.
+    merge:
+        title: Merge
+        image: merge
+        summary: Conversations made simple
+        description: >
+          Ever tried to send a message to a contact with more than one number or
+          address in the iOS Messages app? If so, you probably know what a pain it is
+          to keep track of each conversation and to switch between them. It doesn’t
+          help that Messages conceals which address you’re currently sending to,
+          either.
 
 
-    Enter Merge. The idea is simple: unify all messages with the same contact
-    into a single thread. No more switching between conversations to read
-    messages from one person. It just makes sense. And switching between sending
-    addresses is equally simple — it’s just a tap-and-hold on the Contact
-    button. At $1.49, Merge delivers on a feature that should have been a part
-    of iOS from the beginning. Created in tandem with Joshua Tucker.
-- title: Open in Chrome
-  description: >
-    Open in Chrome is simple, yet effective — it replaces Safari with Google
-    Chrome as the default browser for iOS. Links from all apps, as well as
-    searches from Spotlight and Siri, all open in Google Chrome when installed.
-    It also supports custom search engines selected from the Settings app. And
-    it’s all open-source.
-- title: WeePreferenceLoader
-  description: >
-    Why clutter the iOS Settings app with dedicated panes for widgets?
-    WeePreferenceLoader is an open-source framework that makes it easy to
-    integrate widget settings where they belong — in the dedicated Notification
-    Center settings. It is simple yet robust, and designed using existing
-    conventions to make moving widget settings a breeze.
-- title: Lecture Recorder
-  description: >
-    Lectures have come a long way since the advent of PowerPoint, but in an age
-    where everything is moving online, lectures are as cumbersome to digitize as
-    ever. The lecture recorder aims to change that, by offering a single tool
-    for recording lectures and annotating slides, optimized for modern tablets.
-    Developed as an HCI project at UBC.
-    
+          Enter Merge. The idea is simple: unify all messages with the same contact
+          into a single thread. No more switching between conversations to read
+          messages from one person. It just makes sense. And switching between sending
+          addresses is equally simple — it’s just a tap-and-hold on the Contact
+          button. At $1.49, Merge delivers on a feature that should have been a part
+          of iOS from the beginning. Created in tandem with Joshua Tucker.
+    chrome:
+        title: Open in Chrome
+        description: >
+          Open in Chrome is simple, yet effective — it replaces Safari with Google
+          Chrome as the default browser for iOS. Links from all apps, as well as
+          searches from Spotlight and Siri, all open in Google Chrome when installed.
+          It also supports custom search engines selected from the Settings app. And
+          it’s all open-source.
+    weeprefloader:
+        title: WeePreferenceLoader
+        description: >
+          Why clutter the iOS Settings app with dedicated panes for widgets?
+          WeePreferenceLoader is an open-source framework that makes it easy to
+          integrate widget settings where they belong — in the dedicated Notification
+          Center settings. It is simple yet robust, and designed using existing
+          conventions to make moving widget settings a breeze.
+Web:
+    lecture:
+        title: Lecture Recorder
+        image: lecture_recorder
+        summary: Slide annotation prototype for tablets
+        landscape-image: true
+        description: >
+          Lectures have come a long way since the advent of PowerPoint, but in an age
+          where everything is moving online, lectures are as cumbersome to digitize as
+          ever. The lecture recorder aims to change that, by offering a single tool
+          for recording lectures and annotating slides, optimized for modern tablets.
+          Developed as an HCI project at UBC.

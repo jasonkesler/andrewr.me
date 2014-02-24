@@ -3,7 +3,7 @@
   {% include head.html %}
   <body class="{% if page.fixed-menu %}fixed-sidebar{% endif %}">
     {% include sidebar.html %}
-    <div class="content container">
+    <div class="content container {% if page.wide-layout %}wide-layout{% endif %}">
       {{ content }}
     </div>
     {% include footer.html %}

@@ -2,14 +2,22 @@
 
 // Media queries
 @mixin desktop {
-  @media (min-width: $desktop-width) {
-    @content;
-  }
+  @media (min-width: $desktop-width) { @content; }
+}
+@mixin not-desktop {
+  @media (max-width: $desktop-width - 1) { @content; }
 }
 @mixin large-desktop {
-  @media (min-width: $large-desktop-width) {
-    @content;
-  }
+  @media (min-width: $large-desktop-width) { @content; }
+}
+@mixin not-large-desktop {
+  @media (max-width: $large-desktop-width - 1) { @content; }
+}
+@mixin mobile {
+  @media (max-width: $mobile-width) { @content; }
+}
+@mixin not-mobile {
+  @media (min-width: $mobile-width + 1) { @content; }
 }
 
 // Images
@@ -26,6 +34,18 @@
       @include background-size(contain);
     }
   }
+}
+
+// Grid
+@mixin grid-column($numcols, $padding) {
+  & {
+    display: inline-block;
+    padding-right: $padding;
+    width: percentage((1 / $numcols) - 0.01);
+  }
+  // &:nth-child(#{$numcols}n+1) {
+  //   margin-left: percentage(($numcols / 2) / 100);
+  // }
 }
 
 // Helpers

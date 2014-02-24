@@ -38,6 +38,11 @@
   margin-bottom: 2rem;
 }
 
+.content.wide-layout {
+  max-width: 100%;
+  margin-right: 0;
+}
+
 #copyright {
   @extend .centered-content;
   font-size: 0.75rem;

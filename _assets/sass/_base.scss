@@ -1,9 +1,11 @@
 @import "compass";
+@import "blueprint";
 
 /* Variables */
 $highlight-color: #268bd2;
 $gray-color: rgba(0,0,0,.5);
 
+$mobile-width: 34rem;
 $desktop-width: 48rem;
 $large-desktop-width: 64rem;
 

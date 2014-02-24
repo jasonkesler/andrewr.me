@@ -1,0 +1,24 @@
+---
+layout: page
+fixed-menu: true
+wide-layout: true
+title: Projects
+---
+
+<div class="project-container">
+  {% for group in site.data.projects %}
+    <h2 class="project-group-title">{{ group[0] }}</h2>
+    {% for projKeyVal in group[1] %}
+      {% assign proj = projKeyVal[1] %}
+      {% if proj.image %}
+        <div class="project">
+          <div class="ss-container">
+            <img class="screenshot" id="ssi-{{projKeyVal[0]}}" src="/dist/assets/{{ proj.image }}.png"></img>
+          </div>
+          <h3 class="project-title">{{ proj.title }}</h2>
+          <div class="project-summary">{{ proj.summary }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>
