@@ -20,6 +20,12 @@
   @media (min-width: $mobile-width + 1) { @content; }
 }
 
+@mixin not-touch {
+  html:not(.touch) & {
+    @content;
+  }
+}
+
 // Images
 @mixin background-image-retina($file, $type) {
   background-image: url($file + '.' + $type);
@@ -31,7 +37,6 @@
     only screen and (min-resolution: 2dppx){
     & {
       background-image: url($file + '@2x.' + $type);
-      @include background-size(contain);
     }
   }
 }

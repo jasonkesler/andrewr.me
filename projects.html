@@ -10,13 +10,18 @@ title: Projects
     <h2 class="project-group-title">{{ group[0] }}</h2>
     {% for projKeyVal in group[1] %}
       {% assign proj = projKeyVal[1] %}
+      {% assign id = projKeyVal[0] %}
       {% if proj.image %}
-        <div class="project">
-          <div class="ss-container">
-            <img class="screenshot" id="ssi-{{projKeyVal[0]}}" src="/dist/assets/{{ proj.image }}.png"></img>
+        <div class="project" id="{{id}}" data-image-name="{{proj.image}}">
+          <div class="project-content">
+            <div class="ss-container">
+              <a class="image-link ss-link" href="#{{id}}">
+                <div class="screenshot" role="img" id="ssi-{{projKeyVal[0]}}"></div>
+              </a>
+            </div>
+            <h3 class="project-title"><a href="#{{id}}">{{ proj.title }}</a></h3>
+            <div class="project-summary">{{ proj.summary }}</div>
           </div>
-          <h3 class="project-title">{{ proj.title }}</h2>
-          <div class="project-summary">{{ proj.summary }}</div>
         </div>
       {% endif %}
     {% endfor %}

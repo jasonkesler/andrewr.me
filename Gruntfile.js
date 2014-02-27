@@ -49,20 +49,19 @@ module.exports = function(grunt) {
     // Combine JS modules using Browserify
     browserify: {
       options: {
-        // Shim 3rd party libraries not in `node_modules`
         shim: {
-          'jquery': {path: asset_path('vendor/jquery.js'), exports: 'jquery'}
+          jquery: {path: asset_path('vendor/jquery.js'), exports: '$'},
         }
       },
       debug: {
-        src: ['app/main.js'],
+        src: [asset_path('main.js')],
         dest: build_path('app.js'),
         options: {
           debug: true
         }
       },
       build: {
-        src: ['app/main.js'],
+        src: [asset_path('main.js')],
         dest: build_path('app.js')
       }
     },

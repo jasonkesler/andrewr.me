@@ -1,35 +1,53 @@
-//= require vendor/jquery
+var $ = require('jquery');
 
-// const NAV_TOP_PADDING = 20;
+(function() {
+    // polyfill for retina.js which browserify-shim is being stupid about
+    var Retina = (function() {
+        var root = window;
+        function isRetina() {
+            var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
+                              (min--moz-device-pixel-ratio: 1.5),\
+                              (-o-min-device-pixel-ratio: 3/2),\
+                              (min-resolution: 1.5dppx)";
 
-// var sidebarScrollTop = 0;
+            if (root.devicePixelRatio > 1)
+              return true;
 
-// function updateSidebarScrollTop() {
-//     sidebarScrollTop = $(".sidebar-nav").offset().top;
-// }
+            if (root.matchMedia && root.matchMedia(mediaQuery).matches)
+              return true;
 
-// function updateNavPosition() {
-//     var docScrollTop = $('body,html').scrollTop();
-//     if(docScrollTop > sidebarScrollTop - NAV_TOP_PADDING) {
-//         $(".sidebar-nav").css({position: 'fixed', top: NAV_TOP_PADDING + 'px'});
-//     } else {
-//         $(".sidebar-nav").css({position: 'static'});
-//     }
-// };
+            return false;
+        };
+        function retinaPath(path) {
+            if (isRetina()) {
+                return path.replace(/\.\w+$/, function(match) { return "@2x" + match; });
+            }
+            return path;
+        };
 
-// $(document).ready(function() {
-//     updateSidebarScrollTop();
-//     $(window).scroll(function() { 
-//         updateNavPosition();
-//     });
-// });
+        return {retinaPath: retinaPath};
+    })();
 
-// $(window).resize(function() {
-//     updateSidebarScrollTop();
-//     updateNavPosition();
-// });
+    $.fn.extend({
+        visible: function(visible) {
+            return $(this).each(function() {
+                $(this).css('visibility', visible ? 'visible' : 'hidden');
+            });
+        }
+    });
 
-// $(document).resize(function() {
-//     updateSidebarScrollTop();
-//     updateNavPosition();
-// });
+    $('.project').each(function(){
+        var el = $(this);
+
+        var imgName = el.attr('data-image-name');
+        if (!imgName) return;
+
+        el.visible(false);
+        var img = new Image();
+        img.src = Retina.retinaPath('/dist/assets/' + imgName);
+        img.onload = function() {
+            el.find('.screenshot').css('background-image', "url('" + img.src + "')");
+            el.visible(true).hide().fadeIn(750).css('display', ''); // hack hack hack
+        };
+    });
+})();

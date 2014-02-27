@@ -10,7 +10,7 @@ a {
 }
 
 .hover-underline {
-  html:not(.touch) & {
+  @include not-touch {
     display: inline-block;
     position: relative;
 
@@ -31,10 +31,14 @@ a {
   }
 }
 
-.text-content a {
-  @extend .hover-underline;
+.text-content {
+  &, *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    & > a:not(.image-link) {
+      @extend .hover-underline;
+    }
+  }
 }
-h1, h2, h3, h4, h5, h6 {
+h1,h2,h3,h4,h5,h6 {
   a:hover {
     color: $highlight-color;
   }

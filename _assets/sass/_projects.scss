@@ -1,102 +1,120 @@
-.bottom-border {
-  // &:before {
-  //   $border-black: 40%;
-  //   $border-color: rgba(100% - $border-black, 100% - $border-black, 100% - $border-black, .75);
-  //   $fade-ratio: 10%;
-  //   @include background-image(linear-gradient(left, transparent, $border-color $fade-ratio, $border-color 100% - $fade-ratio, transparent));
-
-  //   bottom: 0;
-  //   content: "";
-  //   display: block;
-  //   height: 1px;
-  //   position: absolute;
-  //   width: 100%;
-  //   z-index: 1;
-  // }
-
-  // margin: 5px;
-  // box-shadow: 0 0 10px -6px rgba(0,0,0,0.75);
+@mixin twocol-small-layout {
+  @media (min-width: 32rem) and (max-width: $desktop-width) {
+    @content;
+  }
+}
+@mixin twocol-large-layout {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
 }
 
 .project-group-title {
   color: $gray-color;
   font-weight: 300;
   margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+  @include twocol-large-layout {
+    text-align: left;
+  }
 }
 
 .project-container {
   margin-bottom: 5rem;
 
   .project {
-    @include mobile {
-      @include grid-column(1, 5%);
-      margin-bottom: 1rem;
-    }
-    @include not-mobile {
-      @include grid-column(2, 8%);
+    display: block;
+    margin: 0 auto 1rem;
+    max-width: 24rem;
+    min-width: 12rem;
+
+    @media (min-width: 44rem) {
       margin-bottom: 1.5rem;
     }
-    max-width: 24rem;
+    @include twocol-large-layout {
+      @include grid-column(2, 8%);
+    }
+    @include twocol-small-layout {
+      @include grid-column(2, 0%);
+      padding: 0 0.5rem;
+    }
 
-    .ss-container {
-      height: 15rem;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      // @extend .bottom-border;
-    }
-    .screenshot {
-      position: absolute;
-      // display: block;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      width: 100%;
-      // min-height: 100%;
-    }
     .project-title {
+      a:not(:hover) {
+        color: black;
+      }
       margin-top: 0.5rem;
       margin-bottom: 0.2rem;
       text-align: center;
     }
     .project-summary {
       color: $gray-color;
-      line-height: 1rem;
       display: block;
+      line-height: 1rem;
       margin: 0 auto;
       text-align: center;
     }
   }
 }
 
-@mixin zoomed-image($dimension, $size) {
-  & {
-    margin: 0;
-    @if $dimension == width {
-      width: (100% / $size) * 100%;
-      height: auto;
-    } @else if $dimension == height {
-      height: (100% / $size) * 100%;
-      width: auto;
-    }
+$ss-height: 80%;
+.ss-container {
+  height: 0;
+  position: relative;
+  text-align: center;
+
+  &, .ss-link, .screenshot {
+    padding-bottom: $ss-height;
+  }
+  .ss-link {
+    height: 0;
+    width: 100%;
   }
 }
 
 .screenshot {
-  &#ssi-jukebox {
-    @include zoomed-image(width, 100%);
-    top: -52%;
+  width: 100%;
+  min-height: 100%;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 0;
+}
+
+@mixin zoom-on-hover($zoom) {
+  & {
+    @include single-transition(background-size, 0.2s);
   }
-  &#ssi-merge {
-    @include zoomed-image(width, 100%);
-    top: -222px;
-    // left: -45px;
-    margin: 0;
+  .project-content:hover & {
+    @include not-touch {
+      background-size: $zoom;
+    }
   }
-  &#ssi-lecture {
-    @include zoomed-image(height, 62%);
-    top: 0;
+}
+
+.ss-container {
+  .screenshot {
+    background-position: center;
+    @include zoom-on-hover(95%);
+  }
+  #ssi-abstergo {
+    background-position: 50% 27%;
+  }
+  #ssi-jukebox {
+    background-position: 50% 39%;
+  }
+  #ssi-merge {
+    background-position: 50% 54%;
+  }
+  #ssi-planz {
+    @include zoom-on-hover(230%);
+    background-size: 250%;
+    background-position: 50% 0%;
+  }
+  #ssi-lecture {
+    @include zoom-on-hover(185%);
+    background-size: 193%;
+    background-position: 2% 2%;
   }
 }

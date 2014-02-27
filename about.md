@@ -4,7 +4,7 @@ fixed-menu: true
 title: About
 ---
 
-<div class="profile-pic"></div>
+<div role="img" class="profile-pic"></div>
 
 I’m Andrew Richardson, and I’m an iOS developer, UI designer, and student living in Vancouver, BC.
 
