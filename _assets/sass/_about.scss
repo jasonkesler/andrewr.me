@@ -1,5 +1,9 @@
 .profile-pic {
   @include square-size(7.5rem);
+  @include mobile {
+    @include square-size(6rem);
+  }
+
   @include background-image-retina('assets/profile', 'jpg');
   @include background-size(contain);
   background-position: center center;
@@ -7,6 +11,7 @@
   float: left;
   margin-top: 0.5rem;
   margin-right: 1rem;
+  margin-bottom: 0.5rem;
   position: relative;
 
   &, &::before { 

@@ -44,7 +44,10 @@
 }
 
 #copyright {
-  @extend .centered-content;
   font-size: 0.75rem;
   padding: 0 1rem;
+  @extend .centered-content;
+  @include mobile {
+    text-align: center;
+  }
 }
