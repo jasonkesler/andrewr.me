@@ -50,7 +50,14 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         shim: {
-          jquery: {path: 'bower_components/jquery/dist/jquery.min.js', exports: '$'}
+          jquery: {path: 'bower_components/jquery/dist/jquery.min.js', exports: '$'},
+          FitText: {
+            path: 'bower_components/FitText.js/jquery.fittext.js', 
+            exports: null,
+            depends: {
+              jquery: '$'
+            }
+          },
         }
       },
       debug: {

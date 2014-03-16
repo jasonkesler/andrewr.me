@@ -23,6 +23,10 @@
 .project-container {
   margin-bottom: 5rem;
 
+  // // Adds padding to anchor links (so scroll positions work correctly)
+  //   padding-top: 25px;
+  //   margin-top: -25px;
+
   .project {
     display: block;
     margin: 0 auto 1rem;
@@ -33,7 +37,7 @@
       margin-bottom: 1.5rem;
     }
     @include twocol-large-layout {
-      @include grid-column(2, 8%);
+      @include grid-column(2, 6%);
     }
     @include twocol-small-layout {
       @include grid-column(2, 0%);
@@ -51,21 +55,25 @@
     .project-summary {
       color: $gray-color;
       display: block;
-      line-height: 1rem;
+      font-size: 0.95rem;
+      line-height: 0.95rem;
+      // @include twocol-small-layout {
+      //   font-size: 0.8rem;
+      //   line-height: 0.85rem;
+      // }
       margin: 0 auto;
       text-align: center;
     }
   }
 }
 
-$ss-height: 80%;
 .ss-container {
   height: 0;
   position: relative;
   text-align: center;
 
   &, .ss-link, .screenshot {
-    padding-bottom: $ss-height;
+    padding-bottom: 80%;
   }
   .ss-link {
     height: 0;
