@@ -50,7 +50,7 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         shim: {
-          jquery: {path: asset_path('vendor/jquery.js'), exports: '$'},
+          jquery: {path: 'bower_components/jquery/dist/jquery.min.js', exports: '$'}
         }
       },
       debug: {

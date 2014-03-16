@@ -1,0 +1,9 @@
+{
+  "name": "andrewr.me",
+  "version": "0.1",
+  "dependencies": {
+    "jquery": "~2.1",
+    "retina.js": "~1.2",
+    "FitText.js": "git://github.com/davatron5000/FitText.js.git"
+  }
+}
