@@ -1,4 +1,5 @@
 var $ = require('jquery');
+require('jquery.visible');
 
 (function() {
     // polyfill for retina.js which browserify-shim is being stupid about
@@ -65,7 +66,12 @@ var $ = require('jquery');
         img.src = Retina.retinaPath('/dist/assets/' + imgName);
         img.onload = function() {
             el.find('.screenshot').css('background-image', "url('" + img.src + "')");
-            el.setVisible(true).hide().fadeIn(750).css('display', ''); // hack hack hack
+            el.setVisible(true);
+
+            // Only fade in if actually on-screen (for performance reasons)
+            if (el.visible(true)) {
+                el.hide().fadeIn(750).css('display', ''); // hack hack hack
+            }
         };
 
         el.find('.project-summary').scaleText({

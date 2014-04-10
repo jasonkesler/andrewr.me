@@ -3,6 +3,7 @@
   "version": "0.1",
   "dependencies": {
     "jquery": "~2.1",
-    "retina.js": "~1.2"
+    "retina.js": "~1.2",
+    "jquery.visible": "~1.1"
   }
 }
