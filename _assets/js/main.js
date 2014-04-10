@@ -58,26 +58,27 @@ require('jquery.visible');
     $('.project').each(function() {
         var el = $(this);
 
+        el.find('.project-summary').scaleText({
+            compressor: 2.0,
+            maxFontSize: 18,
+            minFontSize: 13
+        });
+
         var imgName = el.attr('data-image-name');
         if (!imgName) return;
 
-        el.setVisible(false);
+        el.addClass('hidden');
+
         var img = new Image();
         img.src = Retina.retinaPath('/dist/assets/' + imgName);
         img.onload = function() {
             el.find('.screenshot').css('background-image', "url('" + img.src + "')");
-            el.setVisible(true);
+            el.removeClass('hidden');
 
             // Only fade in if actually on-screen (for performance reasons)
             if (el.visible(true)) {
                 el.hide().fadeIn(750).css('display', ''); // hack hack hack
             }
         };
-
-        el.find('.project-summary').scaleText({
-            compressor: 2.0,
-            maxFontSize: 18,
-            minFontSize: 13
-        });
     });
 })();

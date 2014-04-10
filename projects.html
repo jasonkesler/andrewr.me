@@ -12,7 +12,7 @@ title: Projects
       {% assign proj = projKeyVal[1] %}
       {% assign id = projKeyVal[0] %}
       {% if proj.image %}
-        <div class="project" id="{{id}}" data-image-name="{{proj.image}}">
+        <div class="project hidden" id="{{id}}" data-image-name="{{proj.image}}">
           <div class="project-content">
             <div class="ss-container">
               <a class="image-link ss-link" href="#{{id}}">
