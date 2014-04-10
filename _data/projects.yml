@@ -2,7 +2,7 @@ iOS:
     abstergo:
         title: Abstergo
         image: abstergo.jpg
-        summary: Take control of your notifications fffffffff fjfkf dffk dfkdjfdk
+        summary: Take control of your notifications
     jukebox:
         title: Jukebox
         image: jukebox.jpg
@@ -62,7 +62,7 @@ Web:
     lecture:
         title: Lecture Recorder
         image: lecture_recorder.png
-        summary: Touch-based annotation prototype
+        summary: Slide annotation prototype
         description: >
           Lectures have come a long way since the advent of PowerPoint, but in an age
           where everything is moving online, lectures are as cumbersome to digitize as

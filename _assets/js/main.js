@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var FitText = require('FitText');
 
 (function() {
     // polyfill for retina.js which browserify-shim is being stupid about
@@ -30,84 +29,49 @@ var FitText = require('FitText');
     })();
 
     $.fn.extend({
-        visible: function(visible) {
+        setVisible: function(visible) {
             return $(this).each(function() {
                 $(this).css('visibility', visible ? 'visible' : 'hidden');
             });
         },
-        measureTextWidth: function() {
-            var $this = this;
-            var dom = $this[0];
-            if (!dom._measureClone) {
-                dom._measureClone = (function() {
-                    var $div = $this.clone();
-                    $div.css({
-                        'display': 'none',
-                        'width': 'auto',
-                        'white-space': 'nowrap'
-                    });
-                    $div.addClass('_measureClone');
-                    $this.parent().append($div);
-                    return $div;
-                })();
-            }
+        scaleText: function(opts) {
+            var compressor = 'compressor' in opts ? opts.compressor : 1.0;
+            var maxFontSize = 'maxFontSize' in opts ? opts.maxFontSize : Math.POSITIVE_INFINITY;
+            var minFontSize = 'minFontSize' in opts ? opts.minFontSize : Math.NEGATIVE_INFINITY;
 
-            return dom._measureClone.width();
+            this.each(function() {
+                var $this = $(this);
+
+                function resizeText() {
+                    var newSize = Math.max(Math.min($this.width() / (compressor * 10), maxFontSize), minFontSize) + 'px';
+                    $this.css('font-size', newSize);
+                    $this.css('line-height', newSize);
+                }
+
+                resizeText();
+                $(window).on('resize orientationchange', resizeText);
+            });
         }
     });
 
-    $('.project').each(function(){
+    $('.project').each(function() {
         var el = $(this);
 
         var imgName = el.attr('data-image-name');
         if (!imgName) return;
 
-        el.visible(false);
+        el.setVisible(false);
         var img = new Image();
         img.src = Retina.retinaPath('/dist/assets/' + imgName);
         img.onload = function() {
             el.find('.screenshot').css('background-image', "url('" + img.src + "')");
-            el.visible(true).hide().fadeIn(750).css('display', ''); // hack hack hack
+            el.setVisible(true).hide().fadeIn(750).css('display', ''); // hack hack hack
         };
 
-        var opts = {
-            compressor: 1.2,
+        el.find('.project-summary').scaleText({
+            compressor: 2.0,
             maxFontSize: 18,
-            minFontSize: 12
-        };
-
-        var summary = el.find('.project-summary').not('._measureClone');
-        function updateFontSize() {
-            // const padding = 70;
-            // var textWidth = summary.measureTextWidth();
-            // var parentWidth = summary.closest('.project-content').width() - 2*padding;
-            // var maxWidth = Math.min(textWidth, parentWidth);
-            // var newSize = Math.max(Math.min(maxWidth / (opts.compressor * 10), opts.maxFontSize), opts.minFontSize);
-
-            const padding = 5;
-            var textWidth = summary.measureTextWidth();
-            var parentWidth = summary.closest('.project-content').width() - 2*padding;
-            var shrinkWidth = Math.max(textWidth - parentWidth, 0);
-            var newSize = opts.maxFontSize;
-            if (shrinkWidth > 0) {
-                var refSize = parseFloat(summary[0]._measureClone.css('font-size'));
-                newSize = refSize - (shrinkWidth / 2);
-                newSize = Math.max(Math.min(opts.maxFontSize, newSize), opts.minFontSize);
-            }
-
-            if (el[0].id === 'abstergo') {
-                console.log('textWidth:', textWidth, 'parentWidth:', parentWidth);
-            }
-            summary.css({
-                'font-size': newSize,
-                'line-height': newSize + 'px'
-            });
-        }
-        updateFontSize();
-
-        // el.find('.project-summary').fitText(2.0, {
-        //     maxFontSize: '100px'
-        // });
-        $(window).on('resize orientationchange', updateFontSize);
+            minFontSize: 13
+        });
     });
 })();
