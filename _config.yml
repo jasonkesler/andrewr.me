@@ -47,5 +47,6 @@ exclude: [
   'README.md',
   'env',
   'tmp',
-  '*.sublime-*'
+  '*.sublime-*',
+  '*.sh'
 ]
