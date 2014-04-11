@@ -119,6 +119,20 @@ module.exports = function(grunt) {
       },
     },
 
+    imagemin: {
+      options: {
+        cache: false
+      },
+      build: {
+        files: [{
+          expand: true,
+          cwd: path.join(asset_dir, 'assets'),
+          src: ['*.jpg', '*.png'],
+          dest: build_path('assets')
+        }]
+      }
+    },
+
     // Clean target directories
     clean: {
       build: [build_dir],
@@ -177,6 +191,11 @@ module.exports = function(grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+
+    production: {
+      fast: [],
+      slow: ['imagemin']
     }
   });
   
@@ -195,21 +214,43 @@ module.exports = function(grunt) {
   });
 
   // Compile and minify JS & CSS, run Jekyll build for production 
+  grunt.registerMultiTask('production', function() {
+    var useImagemin = this.data.indexOf('imagemin') !== -1;
+    var tasks = [
+      'clean:all',
+      'compass:build',
+      'browserify:build',
+      'concat:build',
+      'cssmin',
+      'uglify',
+      'copy',
+      'imagemin',
+      'clean:temp'
+    ].filter(function(task) {
+      return (task !== 'imagemin' || useImagemin);
+    });
+
+    grunt.task.run(tasks);
+  });
+
   grunt.registerTask('build', [
-    'clean:all',
-    'compass:build',
-    'browserify:build',
-    'concat:build',
-    'cssmin',
-    'uglify',
-    'copy',
-    'clean:temp',
+    'production:fast',
+    'jekyll:production'
+  ]);
+
+  grunt.registerTask('build-optim', [
+    'production:slow',
     'jekyll:production'
   ]);
 
   // Run Jekyll with environment set to production
   grunt.registerTask('run', [
     'build',
+    'jekyll:prodServer'
+  ]);
+
+  grunt.registerTask('run-optim', [
+    'build-optim',
     'jekyll:prodServer'
   ]);
 
