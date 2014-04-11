@@ -2,7 +2,7 @@ var $ = require('jquery');
 require('jquery.visible');
 
 (function() {
-    // polyfill for retina.js which browserify-shim is being stupid about
+    // simplified polyfill for retina.js (modified to make path generation easier)
     var Retina = (function() {
         var root = window;
         function isRetina() {
