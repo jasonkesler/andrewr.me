@@ -180,7 +180,7 @@ module.exports = function(grunt) {
       livereload: {
         // everything is regenerated on build, so we only need to watch one file
         files: ['_site/index.html'],
-        options: { livereload: true, debounceDelay: 1000 }
+        options: { livereload: true, debounceDelay: 2000 }
       }
     },
 
@@ -194,8 +194,8 @@ module.exports = function(grunt) {
     },
 
     production: {
-      fast: [],
-      slow: ['imagemin']
+      fast: {exclude: ['imagemin']},
+      slow: {}
     }
   });
   
@@ -215,7 +215,7 @@ module.exports = function(grunt) {
 
   // Compile and minify JS & CSS, run Jekyll build for production 
   grunt.registerMultiTask('production', function() {
-    var useImagemin = this.data.indexOf('imagemin') !== -1;
+    var exclude = this.data.exclude || [];
     var tasks = [
       'clean:all',
       'compass:build',
@@ -227,7 +227,7 @@ module.exports = function(grunt) {
       'imagemin',
       'clean:temp'
     ].filter(function(task) {
-      return (task !== 'imagemin' || useImagemin);
+      return exclude.indexOf(task) === -1;
     });
 
     grunt.task.run(tasks);
@@ -245,12 +245,12 @@ module.exports = function(grunt) {
 
   // Run Jekyll with environment set to production
   grunt.registerTask('run', [
-    'build',
+    'production:fast',
     'jekyll:prodServer'
   ]);
 
   grunt.registerTask('run-optim', [
-    'build-optim',
+    'production:slow',
     'jekyll:prodServer'
   ]);
 
