@@ -17,7 +17,7 @@
     "browserify-shim": "^3.4.1"
   },
   "browser": {
-    "jquery.visible": "./bower_components/jquery.visible/jquery.visible.min.js",
+    "jquery.visible": "./bower_components/jquery.visible/jquery.visible.min.js"
   },
   "browserify-shim": {
     "jquery": "global:$",
