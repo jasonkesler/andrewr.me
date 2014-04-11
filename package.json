@@ -15,7 +15,8 @@
     "grunt-concurrent": "^0.4.3",
     "grunt-contrib-copy": "^0.5.0",
     "browserify-shim": "^3.4.1",
-    "grunt-contrib-imagemin": "^0.6.1"
+    "grunt-contrib-imagemin": "^0.6.1",
+    "grunt-newer": "^0.7.0"
   },
   "browser": {
     "jquery.visible": "./bower_components/jquery.visible/jquery.visible.min.js"

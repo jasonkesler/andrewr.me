@@ -120,9 +120,6 @@ module.exports = function(grunt) {
     },
 
     imagemin: {
-      options: {
-        cache: false
-      },
       build: {
         files: [{
           expand: true,
@@ -167,15 +164,15 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['<%= meta.scripts %>'],
-        tasks: ['browserify:debug']
+        tasks: ['newer:browserify:debug']
       },
       styles: {
         files: ['<%= meta.styles %>'],
-        tasks: ['compass:debug', 'concat:build']
+        tasks: ['newer:compass:debug', 'newer:concat:build']
       },
       assets: {
         files: [path.join(asset_dir, 'assets/**/*')],
-        tasks: ['copy:assets']
+        tasks: ['newer:copy:assets']
       },
       livereload: {
         // everything is regenerated on build, so we only need to watch one file
@@ -194,7 +191,7 @@ module.exports = function(grunt) {
     },
 
     production: {
-      fast: {exclude: ['imagemin']},
+      fast: { exclude: ['imagemin'] },
       slow: {}
     }
   });
@@ -227,7 +224,9 @@ module.exports = function(grunt) {
       'imagemin',
       'clean:temp'
     ].filter(function(task) {
-      return exclude.indexOf(task) === -1;
+      return task.split(':').every(function(component) {
+        return exclude.indexOf(component) === -1;
+      });
     });
 
     grunt.task.run(tasks);
