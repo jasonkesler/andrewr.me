@@ -43,3 +43,6 @@ node_modules
 dist
 bower_components
 _notes
+
+# Hosting stuff
+s3_website.yml
