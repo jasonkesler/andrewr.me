@@ -1,8 +1,12 @@
-<p id="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</p>
+<footer>
+  <p id="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. All rights reserved.</p>
+</footer>
 
 <!-- JS -->
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="/dist/vendor/retina.js"></script>
 <script src="/dist/vendor/modernizr.js"></script>
+<script src="/dist/vendor/bigfoot.min.js"></script>
 {% if site.production %}
   <script src="/dist/app.min.js"></script>
 {% else %}

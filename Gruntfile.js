@@ -49,16 +49,7 @@ module.exports = function(grunt) {
     // Combine JS modules using Browserify
     browserify: {
       options: {
-        shim: {
-          jquery: {path: 'bower_components/jquery/dist/jquery.min.js', exports: '$'},
-          'jquery.visible': {
-            path: 'bower_components/jquery.visible/jquery.visible.min.js', 
-            exports: null,
-            depends: {
-              jquery: '$'
-            }
-          },
-        }
+        transform: ['browserify-shim']
       },
       debug: {
         src: [asset_path('main.js')],
@@ -92,7 +83,7 @@ module.exports = function(grunt) {
     // Concatenate files
     concat: {
       build: {
-        src: [asset_path('*.css'), build_path('main.css')],
+        src: [asset_path('*.css'), build_path('main.css'), build_path('bigfoot*.css')],
         dest: build_path('style.css')
       }
     },

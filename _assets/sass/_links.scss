@@ -45,7 +45,7 @@ a {
 
 .text-content {
   &, *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-    & > a:not(.image-link) {
+    & > a:not(.image-link):not(.footnote-button) {
       @extend .hover-underline;
     }
   }

@@ -3,11 +3,11 @@ layout: default
 title: Home
 ---
 
-<div class="posts">
+<section class="posts">
   {% for post in paginator.posts %}
     {% include post.html post=post %}
   {% endfor %}
-</div>
+</section>
 
 <div class="pagination">
   {% if paginator.next_page %}

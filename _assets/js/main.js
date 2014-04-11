@@ -81,4 +81,9 @@ require('jquery.visible');
             }
         };
     });
+
+    $.bigfoot({
+        actionOriginalFN: 'ignore',
+        numberResetSelector: 'article'
+    });
 })();

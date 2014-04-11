@@ -26,6 +26,16 @@
 
   .sidebar-about {
     line-height: 1em;
+    h1 {
+      color: black;
+      font-size: 2.3rem;
+      @include desktop {
+        font-size: 2.5rem;
+      }
+      font-weight: 300;
+      line-height: 1em;
+      margin-top: 0;
+    }
     p {
       margin-bottom: 0.6rem;
       display: none;
@@ -34,14 +44,6 @@
         margin-bottom: 1rem;
       }
     }
-  }
-
-  /* Sidebar links */
-  .sidebar-nav a {
-    &:hover {
-      color: $highlight-color;
-    }
-    color: #515151;
   }
 
   .social-links {
@@ -64,23 +66,16 @@
     }
   }
 
-  /* About section */
-  .sidebar-about h1 {
-    color: black;
-    font-size: 2.3rem;
-    @include desktop {
-      font-size: 2.5rem;
-    }
-    font-weight: 300;
-    line-height: 1em;
-    margin-top: 0;
-  }
-
   /* Sidebar nav */
   .sidebar-nav {
     padding-left: 0;
     list-style: none;
-    // margin-bottom: 0;
+    a {
+      color: #515151;
+      &:hover {
+        color: $highlight-color;
+      }
+    }
   }
   .sidebar-nav-item {
     display: inline;
