@@ -123,7 +123,7 @@ module.exports = function(grunt) {
     clean: {
       build: [build_dir],
       temp: { expand: true, cwd: build_dir, src: ['*.css', '!style*.css'] },
-      all: [build_dir]
+      all: [build_dir, '_site']
     },
 
     // Run Jekyll commands
@@ -131,15 +131,20 @@ module.exports = function(grunt) {
       server: {
         options: {
           serve: true,
-          // Add the --watch flag, i.e. rebuild on file changes
           watch: true
         }
       },
       build: {},
       production: {
         options: {
-          config: '_config.yml',
-          raw: 'production: true\n'
+          config: ['_config.yml', '_config.production.yml'].join(',')
+        }
+      },
+      prodServer: {
+        options: {
+          config: ['_config.yml', '_config.production.yml'].join(','),
+          serve: true,
+          watch: true
         }
       }
     },
@@ -189,11 +194,6 @@ module.exports = function(grunt) {
     grunt.task.run('concurrent:watch');
   });
 
-  // Run Jekyll build with environment set to production
-  grunt.registerTask('jekyll-production', function() {
-    grunt.task.run('jekyll:production');
-  });
-
   // Compile and minify JS & CSS, run Jekyll build for production 
   grunt.registerTask('build', [
     'clean:all',
@@ -204,7 +204,13 @@ module.exports = function(grunt) {
     'uglify',
     'copy',
     'clean:temp',
-    'jekyll-production'
+    'jekyll:production'
+  ]);
+
+  // Run Jekyll with environment set to production
+  grunt.registerTask('run', [
+    'build',
+    'jekyll:prodServer'
   ]);
 
   grunt.registerTask('default', ['debug']);
