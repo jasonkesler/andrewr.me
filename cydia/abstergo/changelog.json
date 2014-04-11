@@ -1,0 +1,42 @@
+{
+	"title": "Abstergo",
+	"changelog": [
+		{
+			"date": "April 21, 2013",
+			"version": "1.0",
+			"changes": [
+				"Initial release"
+			]
+		},
+		{
+			"date": "April 26, 2013",
+			"version": "1.1",
+			"changes": [
+				"Bluetooth notifications (ie. with a Pebble watch) should now work correctly when Abstergo is installed (and even support reminders!)",
+				"Fixed a crash when answering phone calls with reminders added to the lock screen",
+				"Fixed some compatibility issues with biteSMS, Action Menu, and Bulletin",
+				"Fixed a rare crash when clearing Passbook notifications on the lock screen",
+				"Fixed an issue with themes where some of Abstergo's images weren't theme-able",
+				"Other minor fixes"
+			]
+		},
+		{
+			"date": "April 30, 2013",
+			"version": "1.1.1",
+			"changes": [
+				"Added translations for 33 (!) languages",
+				"Fixed a crash when clearing all notifications from the lock screen with QuickReply for WhatsApp / Viber installed",
+				"Fixed a rare crash when clearing certain notifications from the Notification Center",
+				"Fixed a rare issue where unlocking the device after cancelling clearing of all notifications would cause the device not to unlock"
+			]
+		},
+		{
+			"date": "May 2, 2013",
+			"version": "1.1.2",
+			"changes": [
+				"Improved translations for Greek, Japanese, Hebrew, Slovakian, Slovenian, French, Spanish, Portuguese, Korean, Traditional Chinese, Russian, Italian, and more",
+				"Fixed an issue where pending Calendar events and pending Reminders would not produce an alert sound or vibration when a notification reminder expired"
+			]
+		}
+	]
+}
